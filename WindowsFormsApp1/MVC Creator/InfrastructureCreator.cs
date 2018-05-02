@@ -47,8 +47,11 @@ namespace WindowsFormsApp1
                 repositoryText = String.Format(repositoryText, "", entityName);
             }
             string text = File.ReadAllText(pathName + csprojFilePath);
-            text = text.Replace(baseText, repositoryText + baseText);
-            File.WriteAllText(pathName + csprojFilePath, text);
+            if (!text.Contains(repositoryText))
+            {
+                text = text.Replace(baseText, repositoryText + baseText);
+                File.WriteAllText(pathName + csprojFilePath, text);
+            }
         }
 
         private static void CreateFolderAndFileRepository(DirectoryInfo di, string filename, string folderName, string folder, string entity)
